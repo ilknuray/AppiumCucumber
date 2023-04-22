@@ -11,6 +11,8 @@ import utils.Driver;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
+import static utils.Driver.getAppiumDriver;
+
 public class Hooks {
     //private bcz i ll use it only in this class
     private AppiumDriverLocalService appiumServer = AppiumDriverLocalService.buildDefaultService();
@@ -25,7 +27,7 @@ public class Hooks {
     }
     @After
     public void tearDown(Scenario scenario) throws MalformedURLException {
-        final byte[] screenshot=((TakesScreenshot) Driver.getAppiumDriver()).getScreenshotAs(OutputType.BYTES);
+        final byte[] screenshot=((TakesScreenshot) getAppiumDriver()).getScreenshotAs(OutputType.BYTES);
         if (scenario.isFailed()) {
             scenario.attach(screenshot, "image/png","screenshots");
         }

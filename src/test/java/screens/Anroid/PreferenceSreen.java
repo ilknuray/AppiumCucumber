@@ -9,7 +9,7 @@ import utils.Driver;
 import java.net.MalformedURLException;
 
 public class PreferenceSreen {
-    PreferenceSreen() throws MalformedURLException {
+    public PreferenceSreen() throws MalformedURLException {
         PageFactory.initElements(new AppiumFieldDecorator(Driver.getAppiumDriver()),this);
     }
 
@@ -18,5 +18,14 @@ public class PreferenceSreen {
 
     @AndroidFindBy(xpath = "//android.widget.TextView[@text='3. Preference dependencies']")
     public MobileElement preferenceDependicies;
+
+    public boolean preferenceScreenIsDisplayed(){
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return preferenceTitle.isDisplayed();
+    }
 
 }

@@ -10,7 +10,7 @@ import java.net.MalformedURLException;
 import java.time.Duration;
 
 public class ApiDemoScreen {
-    ApiDemoScreen() throws MalformedURLException {
+    public ApiDemoScreen() throws MalformedURLException {
         PageFactory.initElements(new AppiumFieldDecorator(Driver.getAppiumDriver()),this);
     }
 
@@ -20,6 +20,15 @@ public class ApiDemoScreen {
 
     @AndroidFindBy(xpath = "//android.widget.TextView[@text='Preference']")
     public MobileElement preferenceButon;
+
+    public boolean IsApiDemoDisplayed(){
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return apiDemosBasligi.isDisplayed();
+    }
 
 
 

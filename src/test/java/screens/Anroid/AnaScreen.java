@@ -10,9 +10,20 @@ import java.net.MalformedURLException;
 import java.time.Duration;
 
 public class AnaScreen {
-    AnaScreen() throws MalformedURLException {
+    public AnaScreen() throws MalformedURLException {
         PageFactory.initElements(new AppiumFieldDecorator(Driver.getAppiumDriver(), Duration.ofSeconds(30)),this);
     }
     @AndroidFindBy(xpath = "(//android.widget.ImageView)[1]")
     public MobileElement anaSayfa;
+    @AndroidFindBy(xpath = "//android.widget.TextView[@text='API Demos']")
+    public MobileElement apiDemosBasligi;
+
+    public boolean anaEkranIsDisplayed(){
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return anaSayfa.isDisplayed();
+    }
 }

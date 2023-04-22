@@ -1,14 +1,16 @@
 package utils;
 
+
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.MalformedURLException;
 import java.util.List;
 
-public class ReusableMethod {
+
+public class ReusableMethods {
+
     public static void tapOnElementWithText(String text) throws MalformedURLException {
         List<MobileElement> mobileElementList = Driver.getAppiumDriver().findElementsByClassName("android.widget.TextView");
         for (MobileElement page: mobileElementList) {
@@ -53,17 +55,17 @@ public class ReusableMethod {
         }
     }
 
-    public static void tapOn(MobileElement element) throws MalformedURLException {
+    public static void tapOn(MobileElement element) {
         waitToBeClickable(element, 10);
         element.click();
     }
 
-    public static void enterText(MobileElement element, String text) throws MalformedURLException {
+    public static void enterText(MobileElement element, String text) {
         waitToBeClickable(element, 10);
         element.sendKeys(text);
     }
 
-    public static void enterText(MobileElement element, String text, boolean needClear) throws MalformedURLException {
+    public static void enterText(MobileElement element, String text, boolean needClear) {
         waitToBeClickable(element, 10);
         if (needClear) {
             element.clear();
@@ -82,16 +84,26 @@ public class ReusableMethod {
 
     public static void waitToBeVisible(MobileElement element, int timeout) throws MalformedURLException {
         WebDriverWait wait = new WebDriverWait(Driver.getAppiumDriver(), timeout);
-        wait.until(ExpectedConditions.visibilityOf(element));
+        //wait.until(ExpectedConditions.visibilityOf(element));
     }
 
-    public static void waitToBeClickable(MobileElement element, int timeout) throws MalformedURLException {
-        WebDriverWait wait = new WebDriverWait(Driver.getAppiumDriver(), timeout);
-        wait.until(ExpectedConditions.elementToBeClickable(element));
+    public static void waitToBeClickable(MobileElement element, int timeout) {
+        WebDriverWait wait = null;
+        try {
+            wait = new WebDriverWait(Driver.getAppiumDriver(), timeout);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+        //wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
-    public static void scrollWithUiScrollable(String elementText) throws MalformedURLException {
-        AndroidDriver<MobileElement> driver = (AndroidDriver) Driver.getAppiumDriver();
+    public static void scrollWithUiScrollable(String elementText) {
+        AndroidDriver<MobileElement> driver = null;
+        try {
+            driver = (AndroidDriver) Driver.getAppiumDriver();
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
         driver.findElementByAndroidUIAutomator("new UiScrollable(new UiSelector()).scrollIntoView(text(\""+elementText+"\"))");
         tapOn(driver.findElementByXPath("//android.widget.TextView[@text='" + elementText + "']"));
     }

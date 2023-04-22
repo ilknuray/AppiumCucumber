@@ -9,7 +9,7 @@ import utils.Driver;
 import java.net.MalformedURLException;
 
 public class PreferenceDependicies {
-    PreferenceDependicies() throws MalformedURLException {
+    public PreferenceDependicies() throws MalformedURLException {
         PageFactory.initElements(new AppiumFieldDecorator(Driver.getAppiumDriver()), this);
     }
 
@@ -27,5 +27,8 @@ public class PreferenceDependicies {
 
     @AndroidFindBy(id = "android:id/edit")
     public MobileElement textBox;
+
+
+
 
 }
